@@ -2,203 +2,118 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Student Portal - คณิตศาสตร์ทั่วไป</title>
+  <title>ระบบผลการเรียน - คณิตศาสตร์ทั่วไป</title>
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f5f7fa;
+      font-family: "Sarabun", sans-serif;
+      background: #f4f6f9;
       margin: 0;
       padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+    }
+    header {
+      background: #1e3a8a;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      font-size: 1.5rem;
     }
     .container {
-      background: #fff;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      width: 420px;
-      text-align: center;
+      max-width: 400px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     }
     h2 {
-      margin-bottom: 20px;
-      color: #333;
+      margin-top: 0;
+      color: #1e3a8a;
+      text-align: center;
     }
-    input[type="text"], input[type="password"], input[type="number"] {
+    input {
       width: 100%;
       padding: 10px;
       margin: 10px 0;
-      border: 1px solid #ddd;
+      border: 1px solid #ccc;
       border-radius: 8px;
-      font-size: 14px;
     }
     button {
-      padding: 8px 12px;
-      margin: 5px;
-      background: #4a90e2;
+      width: 100%;
+      padding: 12px;
+      background: #2563eb;
       border: none;
+      color: white;
+      font-size: 1rem;
       border-radius: 8px;
-      color: #fff;
-      font-size: 14px;
       cursor: pointer;
-      transition: background 0.3s;
     }
     button:hover {
-      background: #357ab8;
+      background: #1d4ed8;
     }
-    .link {
-      margin-top: 15px;
-      display: block;
-      font-size: 14px;
-      color: #4a90e2;
-      text-decoration: none;
-    }
-    .dashboard, .admin-panel {
-      display: none;
-      text-align: left;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-    th, td {
-      border: 1px solid #ddd;
-      padding: 8px;
+    .error {
+      color: red;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
       text-align: center;
-      font-size: 14px;
-    }
-    th {
-      background: #f0f4f8;
-    }
-    .logout {
-      margin-top: 20px;
-      background: #e74c3c;
-    }
-    .logout:hover {
-      background: #c0392b;
     }
   </style>
 </head>
 <body>
-  <!-- หน้า Login -->
-  <div class="container" id="login-box">
-    <h2>Login</h2>
-    <input type="text" id="userId" placeholder="รหัสนักศึกษา/ผู้สอน">
+  <header>
+    ระบบผลการเรียน - คณิตศาสตร์ทั่วไป
+  </header>
+  <div class="container">
+    <h2>เข้าสู่ระบบ</h2>
+    <input type="text" id="userId" placeholder="รหัสผู้ใช้/รหัสนักศึกษา">
     <input type="password" id="password" placeholder="รหัสผ่าน">
-    <button onclick="login()">Login</button>
-    <a href="#" class="link">ลืมรหัสผ่าน?</a>
-  </div>
-
-  <!-- Dashboard นักศึกษา -->
-  <div class="container dashboard" id="dashboard">
-    <h2>📊 ผลการเรียน: คณิตศาสตร์ทั่วไป</h2>
-    <p id="studentInfo"></p>
-    <table>
-      <tr>
-        <th>กลางภาค</th>
-        <th>ปลายภาค</th>
-        <th>รวม</th>
-      </tr>
-      <tr>
-        <td id="midterm">25/30</td>
-        <td id="final">40/50</td>
-        <td id="total">65/80</td>
-      </tr>
-    </table>
-    <button class="logout" onclick="logout()">Logout</button>
-  </div>
-
-  <!-- Admin Panel -->
-  <div class="container admin-panel" id="admin-panel">
-    <h2>👨‍🏫 Admin Panel - คณิตศาสตร์ทั่วไป</h2>
-    <p>จัดการคะแนนนักศึกษา</p>
-
-    <table id="adminTable">
-      <tr>
-        <th>รหัสนักศึกษา</th>
-        <th>ชื่อ-นามสกุล</th>
-        <th>กลางภาค</th>
-        <th>ปลายภาค</th>
-        <th>รวม</th>
-        <th>แก้ไข</th>
-      </tr>
-      <tr>
-        <td>6401234567</td>
-        <td>สมชาย ใจดี</td>
-        <td><input type="number" value="25"></td>
-        <td><input type="number" value="40"></td>
-        <td>65</td>
-        <td><button onclick="saveScore(this)">บันทึก</button></td>
-      </tr>
-      <tr>
-        <td>6401234568</td>
-        <td>สมหญิง สวยงาม</td>
-        <td><input type="number" value="28"></td>
-        <td><input type="number" value="45"></td>
-        <td>73</td>
-        <td><button onclick="saveScore(this)">บันทึก</button></td>
-      </tr>
-    </table>
-
-    <button onclick="exportCSV()">Export CSV</button>
-    <button class="logout" onclick="logout()">Logout</button>
+    <button onclick="login()">เข้าสู่ระบบ</button>
+    <div class="error" id="errorMsg"></div>
   </div>
 
   <script>
-    function login() {
-      const userId = document.getElementById("userId").value;
-      const password = document.getElementById("password").value;
+    let usersData = [];
 
-      if (userId && password) {
-        document.getElementById("login-box").style.display = "none";
+    // โหลด users.csv อัตโนมัติจาก repo
+    async function loadUsers() {
+      try {
+        const response = await fetch('users.csv');
+        const text = await response.text();
 
-        if (userId.startsWith("admin")) {
-          document.getElementById("admin-panel").style.display = "block";
-        } else {
-          document.getElementById("dashboard").style.display = "block";
-          document.getElementById("studentInfo").innerText = `สวัสดี, รหัสนักศึกษา ${userId}`;
-        }
-      } else {
-        alert("กรุณากรอกรหัสและรหัสผ่าน");
+        const rows = text.trim().split('\\n').map(r => r.split(','));
+        const headers = rows[0];
+        usersData = rows.slice(1).map(row => {
+          let obj = {};
+          row.forEach((val, i) => obj[headers[i]] = val);
+          return obj;
+        });
+      } catch (err) {
+        document.getElementById('errorMsg').innerText = "ไม่สามารถโหลด users.csv ได้";
       }
     }
 
-    function logout() {
-      document.getElementById("dashboard").style.display = "none";
-      document.getElementById("admin-panel").style.display = "none";
-      document.getElementById("login-box").style.display = "block";
+    // ตรวจสอบการ login
+    function login() {
+      const userId = document.getElementById("userId").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      const user = usersData.find(u => u.userId === userId && u.password === password);
+
+      if (!user) {
+        document.getElementById("errorMsg").innerText = "รหัสผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
+        return;
+      }
+
+      if (user.role === "admin") {
+        window.location.href = "admin.html"; // อาจารย์ไปหน้า admin
+      } else {
+        // เก็บ userId ใน localStorage เพื่อใช้ใน student.html
+        localStorage.setItem("currentUserId", userId);
+        window.location.href = "student.html";
+      }
     }
 
-    function saveScore(btn) {
-      const row = btn.parentElement.parentElement;
-      const studentId = row.cells[0].innerText;
-      const midterm = parseInt(row.cells[2].querySelector("input").value) || 0;
-      const final = parseInt(row.cells[3].querySelector("input").value) || 0;
-      const total = midterm + final;
-      row.cells[4].innerText = total;
-      alert(`บันทึกคะแนนของ ${studentId}: กลางภาค ${midterm}, ปลายภาค ${final}, รวม ${total}`);
-    }
-
-    function exportCSV() {
-      let rows = document.querySelectorAll("#adminTable tr");
-      let csv = [];
-      rows.forEach(row => {
-        let cols = row.querySelectorAll("td, th");
-        let rowData = [];
-        cols.forEach(col => rowData.push(col.innerText));
-        csv.push(rowData.join(","));
-      });
-
-      let csvFile = new Blob([csv.join("\n")], { type: "text/csv" });
-      let link = document.createElement("a");
-      link.download = "scores.csv";
-      link.href = window.URL.createObjectURL(csvFile);
-      link.click();
-    }
+    // โหลด users.csv ตอนเปิดหน้า
+    loadUsers();
   </script>
 </body>
 </html>
